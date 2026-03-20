@@ -44,9 +44,10 @@ python-json-logger>=3.0,<4.0
 # Image Processing
 Pillow>=11.0,<12.0
 
-# Development
+# Development (install locally only, not on Railway)
 django-extensions>=3.2,<4.0
-django-silk>=5.3,<6.0
+# django-silk — install manually for local profiling:
+#   pip install django-silk>=5.3,<6.0
 
 # Testing
 pytest>=8.3,<9.0
