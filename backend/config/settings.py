@@ -207,13 +207,13 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Use basic StaticFilesStorage — WhiteNoise middleware handles serving/compression
+# Use simple custom storage that NEVER uses manifests
 STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
-    'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
+    'staticfiles': {'BACKEND': 'config.storage.SimpleStaticFilesStorage'},
 }
 # Legacy setting (Django 5 still respects this as fallback)
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'config.storage.SimpleStaticFilesStorage'
 
 # =============================================================================
 # AWS S3 / Cloudflare R2 Storage
@@ -233,7 +233,7 @@ if USE_S3:
 
     STORAGES = {
         'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
-        'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
+        'staticfiles': {'BACKEND': 'config.storage.SimpleStaticFilesStorage'},
     }
 
 # =============================================================================

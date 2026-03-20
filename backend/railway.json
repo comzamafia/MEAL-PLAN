@@ -1,7 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "startCommand": "python -c \"import django;import os;os.environ.setdefault('DJANGO_SETTINGS_MODULE','config.settings');django.setup();from django.contrib.staticfiles.storage import staticfiles_storage;print(f'STORAGE CLASS: {type(staticfiles_storage._wrapped).__name__}');print(f'MRO: {[c.__name__ for c in type(staticfiles_storage._wrapped).__mro__]}')\" && python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py seed_data && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120",
+    "startCommand": "python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py seed_data && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120",
     "healthcheckPath": "/api/v1/health/",
     "healthcheckTimeout": 10,
     "restartPolicyType": "ON_FAILURE",
