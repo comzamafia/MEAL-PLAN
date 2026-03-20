@@ -212,6 +212,8 @@ STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
     'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
 }
+# Legacy setting (Django 5 still respects this as fallback)
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # =============================================================================
 # AWS S3 / Cloudflare R2 Storage
