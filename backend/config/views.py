@@ -30,12 +30,16 @@ def health_check(request):
     except Exception:
         health['status'] = 'unhealthy'
 
-    # Check Redis cache
+    # Check Redis cache (non-critical for health check)
     try:
         cache.set('health_check', 'ok', 10)
         if cache.get('health_check') == 'ok':
             health['cache'] = True
     except Exception:
+        pass  # Cache down is non-critical
+
+    # Only database is required for healthy status
+    if not health['database']:
         health['status'] = 'unhealthy'
 
     status_code = 200 if health['status'] == 'healthy' else 503
