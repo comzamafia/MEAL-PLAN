@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =============================================================================
 
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='django-insecure-change-me-in-production')
-DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)
+DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
 FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000')
 
