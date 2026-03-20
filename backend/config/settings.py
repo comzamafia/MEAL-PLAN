@@ -46,8 +46,9 @@ THIRD_PARTY_APPS = [
     'storages',
 ]
 
-# Only include silk in DEBUG mode
-if DEBUG:
+# Only include silk in DEBUG mode on local machines (never on Railway/production)
+SILK_ENABLED = DEBUG and not config('RAILWAY_ENVIRONMENT', default='')
+if SILK_ENABLED:
     THIRD_PARTY_APPS.append('silk')
 
 LOCAL_APPS = [
@@ -78,7 +79,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG:
+if SILK_ENABLED:
     MIDDLEWARE.insert(0, 'silk.middleware.SilkyMiddleware')
 
 ROOT_URLCONF = 'config.urls'
