@@ -8,8 +8,6 @@ from decimal import Decimal
 from django.http import HttpResponse
 from django.db.models import Sum, Q
 from django.utils import timezone
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 
 from rest_framework import generics, views
 from rest_framework.response import Response
@@ -42,7 +40,6 @@ class MenuItemListView(generics.ListAPIView):
             OpenApiParameter(name='allergen_exclude', description='Comma-separated allergens to exclude', type=str),
         ]
     )
-    @method_decorator(cache_page(60 * 5))  # 5-minute cache
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
