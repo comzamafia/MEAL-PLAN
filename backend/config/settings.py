@@ -110,8 +110,10 @@ USE_SQLITE = config('USE_SQLITE', default=False, cast=bool)
 if DATABASE_URL:
     import dj_database_url
     DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL)
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
+    # Ensure correct engine for psycopg3
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 elif USE_SQLITE:
     # SQLite for quick local testing without PostgreSQL
     DATABASES = {
