@@ -396,6 +396,11 @@ CSRF_TRUSTED_ORIGINS = config(
     default='http://localhost:3000,http://localhost:8000',
     cast=Csv()
 )
+# Add Railway domains for CSRF
+CSRF_TRUSTED_ORIGINS += [
+    'https://meal-plan.up.railway.app',
+    'https://meal-plan-production-c1de.up.railway.app',
+]
 
 # =============================================================================
 # Default Primary Key Type
