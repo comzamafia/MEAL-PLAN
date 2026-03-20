@@ -1,7 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "startCommand": "mkdir -p staticfiles && python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py seed_data && python manage.py shell -c \"from apps.accounts.models import User; User.objects.filter(email='mrdamrongsakn@gmail.com').delete(); u=User.objects.create_superuser(email='mrdamrongsakn@gmail.com', username='mrdamrongsakn', password='48rH2%36#'); print(f'Created superuser: {u.email}')\" && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120",
+    "startCommand": "mkdir -p staticfiles && python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py seed_data && python manage.py create_custom_superuser && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120",
     "healthcheckPath": "/api/v1/health/",
     "healthcheckTimeout": 10,
     "restartPolicyType": "ON_FAILURE",
