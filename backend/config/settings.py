@@ -373,15 +373,15 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-    SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
-    # Railway / Vercel terminate SSL at the proxy
+    # Railway / Vercel terminate SSL at the proxy — let the proxy handle redirects
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = False  # Proxy handles HTTPS redirect, not Django
 
 # CSRF trusted origins (required for Django admin behind proxy)
 CSRF_TRUSTED_ORIGINS = config(
