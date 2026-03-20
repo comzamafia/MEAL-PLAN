@@ -52,8 +52,8 @@ if settings.DEBUG:
         path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     ]
 
-# Django Silk profiler only in DEBUG mode
-if settings.DEBUG:
+# Django Silk profiler only when enabled (local dev only)
+if getattr(settings, 'SILK_ENABLED', False):
     urlpatterns += [
         path('silk/', include('silk.urls', namespace='silk')),
     ]
