@@ -3,7 +3,7 @@ nixPkgs = ["zlib", "libjpeg"]
 
 [phases.build]
 cmds = [
-    "python manage.py collectstatic --noinput"
+    "python manage.py collectstatic --noinput --clear"
 ]
 
 [start]
