@@ -207,12 +207,11 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# WhiteNoise static files in production (NOT Manifest — avoids missing manifest errors)
+# Use basic StaticFilesStorage — WhiteNoise middleware handles serving/compression
 STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
-    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
+    'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
 }
-WHITENOISE_MANIFEST_STRICT = False
 
 # =============================================================================
 # AWS S3 / Cloudflare R2 Storage
@@ -232,7 +231,7 @@ if USE_S3:
 
     STORAGES = {
         'default': {'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage'},
-        'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
+        'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
     }
 
 # =============================================================================
