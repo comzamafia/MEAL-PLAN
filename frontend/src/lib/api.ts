@@ -332,7 +332,7 @@ class ApiClient {
   async login(email: string, password: string) {
     return this.request<{ access: string; refresh: string }>('/auth/token/', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username: email, password }), // Backend expects username field
     })
   }
 
