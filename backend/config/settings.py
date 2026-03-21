@@ -277,6 +277,8 @@ CORS_ALLOWED_ORIGINS = config(
     default='http://localhost:3000',
     cast=Csv()
 )
+# Add Vercel frontend URL
+CORS_ALLOWED_ORIGINS += ['https://meal-plan-lime.vercel.app']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -400,6 +402,7 @@ CSRF_TRUSTED_ORIGINS = config(
 CSRF_TRUSTED_ORIGINS += [
     'https://meal-plan.up.railway.app',
     'https://meal-plan-production-c1de.up.railway.app',
+    'https://meal-plan-lime.vercel.app',
 ]
 
 # =============================================================================
