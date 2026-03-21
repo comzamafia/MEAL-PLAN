@@ -231,7 +231,26 @@ class ApiClient {
         }
       }
 
-      return data as ApiResponse<T>
+      // Handle DRF paginated response format: {count, next, previous, results}
+      if (data && typeof data === 'object' && 'results' in data) {
+        return {
+          status: 'success',
+          data: data.results as T,
+          message: `Found ${data.count} items`,
+        }
+      }
+
+      // Handle DRF detail response (single object) or custom format
+      if (data && typeof data === 'object' && 'status' in data) {
+        return data as ApiResponse<T>
+      }
+
+      // Direct data response (no wrapper)
+      return {
+        status: 'success',
+        data: data as T,
+        message: 'Success',
+      }
     } catch (error) {
       return {
         status: 'error',
