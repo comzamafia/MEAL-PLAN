@@ -11,13 +11,20 @@ interface ApiResponse<T> {
 }
 
 // API Types
+export interface Category {
+  id: string
+  name_en: string
+  name_th?: string
+  slug: string
+}
+
 export interface MenuItem {
   id: string
   name_en: string
   name_th?: string
   description_en: string
   description_th?: string
-  category: string
+  category: Category
   base_price: string
   image_url?: string
   thumbnail_url?: string

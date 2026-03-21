@@ -144,13 +144,21 @@ export default function MenuPage() {
   }, []);
 
   const categories = useMemo(() => {
-    const cats = new Set(items.map((i) => i.category));
+    const cats = new Set(items.map((i) => i.category.slug));
     return ["all", ...Array.from(cats)];
+  }, [items]);
+
+  const categoryNames = useMemo(() => {
+    const map: Record<string, string> = { all: "All" };
+    items.forEach((i) => {
+      map[i.category.slug] = i.category.name_en;
+    });
+    return map;
   }, [items]);
 
   const filtered = useMemo(() => {
     return items.filter((item) => {
-      if (category !== "all" && item.category !== category) return false;
+      if (category !== "all" && item.category.slug !== category) return false;
       if (search && !item.name_en.toLowerCase().includes(search.toLowerCase())) return false;
       if (dietary.includes("gluten_free") && !item.is_gluten_free) return false;
       if (dietary.includes("dairy_free") && !item.is_dairy_free) return false;
@@ -202,7 +210,7 @@ export default function MenuPage() {
                   onClick={() => setCategory(cat)}
                   className={category === cat ? "bg-green-600 hover:bg-green-700" : ""}
                 >
-                  {cat === "all" ? "All" : cat}
+                  {categoryNames[cat] || cat}
                 </Button>
               ))}
             </div>
