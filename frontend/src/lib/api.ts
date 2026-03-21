@@ -346,7 +346,10 @@ class ApiClient {
   async register(data: { email: string; password: string; first_name: string; last_name: string; phone?: string }) {
     return this.request<{ id: string; email: string }>('/auth/register/', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        password_confirm: data.password, // Backend requires password_confirm
+      }),
     })
   }
 
